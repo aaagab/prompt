@@ -1,12 +1,16 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 # author: Gabriel Auger
-# version: 1.0.0-draft-1542938405
+# version: 1.0.0-rc-1544118437
 # name: message
 # license: MIT
 
-from .format_text import Format_text as ft
 import traceback
-import inspect, sys
+import inspect, sys, os
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+from format_text import Format_text as ft
+del sys.path[0:2]
 
 def app_error(*msgs):
     if len(msgs) == 1:
@@ -14,10 +18,10 @@ def app_error(*msgs):
     else:
         for msg in msgs:
             print(ft.error(""+msg))
-    frame,filename,line_number,function_name,lines,index=inspect.stack()[1]
-    print("\t"+str(line_number)+": "+filename)
-    print(traceback.format_exc())
-    sys.exit(1)
+    # frame,filename,line_number,function_name,lines,index=inspect.stack()[1]
+    # print("\t"+str(line_number)+": "+filename)
+    traceback.print_stack()
+    traceback.format_exc()
 
 def user_error(*msgs):
     if len(msgs) == 1:
@@ -71,7 +75,12 @@ def subtitle(msg):
     print("  "+ft.lBlue(ldeco)+ft.bold(msg)+ft.lCyan(rdeco))
 
 def dbg(funct, *msgs):
-    from utils.json_config import Json_config
+    try:
+        from modules.json_config.json_config import Json_config
+    except:
+        sys.path.insert(1, os.path.join(sys.path[0], '..'))
+        from json_config.json_config import Json_config
+    
     conf = Json_config()
     if conf.get_value("debug"):
         globals()[funct](*msgs)
