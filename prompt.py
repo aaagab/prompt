@@ -1,7 +1,18 @@
 #!/usr/bin/env python3
+# author: Gabriel Auger
+# version: 1.0.0-draft-1543082164
+# name: prompt
+# license: MIT
+
 import sys
-import modules.message.message as msg
 import os
+import shlex
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+import modules.message.message as msg
+del sys.path[0:2]
+
 
 def prompt(txt, allow_empty=False):
     tmp_var=""
@@ -76,7 +87,8 @@ def get_path(txt, allow_empty=False):
     txt="  "+txt +" [q]: "
     path=""
     while not path:
-        path=subprocess.check_output(filenpa_get_path+" '"+txt+"'",shell=True).decode("utf-8").rstrip()
+        path=subprocess.check_output(shlex.split("bash -c 'read -e -p \"{}\" text; echo \"$text\"'".format(txt))).decode("utf-8").rstrip()
+
         if path.lower() == "q":
             sys.exit(1)
         if allow_empty:
