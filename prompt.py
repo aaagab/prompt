@@ -13,7 +13,6 @@ sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 import modules.message.message as msg
 del sys.path[0:2]
 
-
 def prompt(txt, allow_empty=False):
     tmp_var=""
     while not tmp_var:
