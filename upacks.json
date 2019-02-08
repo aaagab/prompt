@@ -1,0 +1,16 @@
+{
+    "Licenses": [
+        "MIT"
+    ],
+    "author": [
+        "Gabriel Auger"
+    ],
+    "deps": [],
+    "description": "Common prompt dialog for python",
+    "filen_main": "prompt.py",
+    "name": "prompt",
+    "repository": "/data/rel",
+    "standalone": false,
+    "uuid4": "",
+    "version": "0.1.0"
+}
