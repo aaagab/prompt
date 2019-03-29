@@ -1,0 +1,16 @@
+{
+    "authors": [
+        "Gabriel Auger"
+    ],
+    "deps": [],
+    "description": "Common prompt dialog for python",
+    "filen_main": "prompt.py",
+    "gpm_version": "0.2.0",
+    "installer": "gpm",
+    "licenses": [
+        "MIT"
+    ],
+    "name": "prompt",
+    "uuid4": "b1a980c3-6e1c-4072-a16c-81df61f2f898",
+    "version": "0.2.0"
+}
