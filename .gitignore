@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 config/private_config.json
 modules/
+gpkgs/
