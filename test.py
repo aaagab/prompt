@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 # author: Gabriel Auger
-# version: 0.3.0
+# version: 2.0.0
 # name: prompt
 # license: MIT
 
-
 import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
-import prompt as prompt
-import modules.message.message as msg
-del sys.path[0:2]
+import importlib
+direpa_script_parent=os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+module_name=os.path.basename(os.path.dirname(os.path.realpath(__file__)))
+sys.path.insert(0, direpa_script_parent)
+prompt = importlib.import_module(module_name)
+del sys.path[0]
 
-msg.info("Basic Input, type empty to see the results")
+prompt.msg.info("Basic Input, type empty to see the results")
 print(prompt.prompt("Input your name"))
 
 print(prompt.prompt_multiple(
