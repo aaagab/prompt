@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # author: Gabriel Auger
-# version: 1.1.0
+# version: 1.2.0
 # name: prompt
 # license: MIT
 
@@ -14,6 +14,9 @@ del sys.path[0]
 
 prompt.msg.info("Basic Input, type empty to see the results")
 print(prompt.prompt("Input your name"))
+
+print(prompt.prompt("Input your name but not mike or tom", exclude_list=["mike", "tom"]))
+
 
 print(prompt.prompt_multiple(
     dict(
