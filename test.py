@@ -15,6 +15,9 @@ del sys.path[0]
 prompt.msg.info("Basic Input, type empty to see the results")
 print(prompt.prompt("Input your name"))
 
+print(prompt.prompt("Input your name but not mike or tom", exclude_list=["mike", "tom"]))
+
+
 print(prompt.prompt_multiple(
     dict(
         title="Choose a fruit",
