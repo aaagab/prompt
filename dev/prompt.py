@@ -5,7 +5,10 @@ import shlex
 
 from ..gpkgs import message as msg
 
-def prompt(txt, allow_empty=False):
+def prompt(txt, 
+    allow_empty=False,
+    exclude_list=None
+):
     tmp_var=""
     while not tmp_var:
         tmp_var = input("  "+txt +" [q to quit]: ")
@@ -14,6 +17,12 @@ def prompt(txt, allow_empty=False):
         if allow_empty:
             if not tmp_var:
                 return ""
+
+        tmp_var=tmp_var.strip()
+        if exclude_list is not None:
+            if tmp_var in exclude_list:
+                msg.warning("'{}' belongs to exclude list '{}'".format(tmp_var, exclude_list))
+                tmp_var=""
 
     return tmp_var.strip()
 
