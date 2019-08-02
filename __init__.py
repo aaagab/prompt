@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # author: Gabriel Auger
-# version: 1.2.0
+# version: 1.2.1
 # name: prompt
 # license: MIT
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 
 from .dev.prompt import prompt, prompt_multiple, prompt_boolean, get_path
 __all__ = [
