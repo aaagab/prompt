@@ -1,9 +1,4 @@
 #!/usr/bin/env python3
-# author: Gabriel Auger
-# version: 1.0.0
-# name: prompt
-# license: MIT
-
 import sys
 import os
 import shlex
@@ -64,7 +59,7 @@ def prompt_boolean(txt, Y_N="y"):
             if tmp_var.lower() == "":
                 return False
         else:
-            msg.app_error("Wrong Value for prompt_boolean: "+Y_N )
+            msg.error("Wrong Value for prompt_boolean: "+Y_N )
             sys.exit(1)
 
         if tmp_var.lower() == "q":
@@ -76,20 +71,25 @@ def prompt_boolean(txt, Y_N="y"):
 
 def get_path(txt, allow_empty=False):
     import subprocess
-    filenpa_get_path=os.path.join(
-        os.path.dirname(os.path.realpath(__file__)),
-        "get_path.sh"
-    )
-    txt="  "+txt +" [q]: "
-    path=""
-    while not path:
-        path=subprocess.check_output(shlex.split("bash -c 'read -e -p \"{}\" text; echo \"$text\"'".format(txt))).decode("utf-8").rstrip()
+    import platform
+    pfm=platform.system()
+    if pfm == "Linux":
+        filenpa_get_path=os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            "get_path.sh"
+        )
+        txt="  "+txt +" [q]: "
+        path=""
+        while not path:
+            path=subprocess.check_output(shlex.split("bash -c 'read -e -p \"{}\" text; echo \"$text\"'".format(txt))).decode("utf-8").rstrip()
 
-        if path.lower() == "q":
-            sys.exit(1)
-        if allow_empty:
-            if not path:
-                return ""
+            if path.lower() == "q":
+                sys.exit(1)
+            if allow_empty:
+                if not path:
+                    return ""
 
-    return path
+        return path
+    else:
+        msg.error("prompt get_path not supported on platform '{}'".format(pfm), exit=1, trace=True)
     
