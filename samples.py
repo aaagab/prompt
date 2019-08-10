@@ -22,10 +22,12 @@ values=["yellow", "red", "green"]
 
 print(prompt.prompt_multiple(names))
 
-print(prompt.prompt_multiple(names, 
+print(prompt.prompt_multiple(names,
+    add_none=True,
     allow_duplicates=True,
     bullet=" # ",
     clear_error=True,
+    default="None",
     indent="  ___   ",
     return_list=True,    
     sort=False,
