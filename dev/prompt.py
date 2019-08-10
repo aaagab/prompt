@@ -155,14 +155,16 @@ def prompt_multiple(
 
         if user_input.lower() == "q":
             sys.exit(1)
-        if user_input.lower() == "none":
-            return None
 
         if not user_input:
             if default is not None:
                 user_input=default
 
+        if user_input.lower() == "none":
+            return None
+
         user_input=user_input.split(",")
+        print("here", user_input)
         if isinstance(user_input, list):
             tmp_input=[]
             for inp in user_input:

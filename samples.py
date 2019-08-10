@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # author: Gabriel Auger
-# version: 2.0.0
+# version: 2.0.1
 # name: prompt
 # license: MIT
 
@@ -22,10 +22,12 @@ values=["yellow", "red", "green"]
 
 print(prompt.prompt_multiple(names))
 
-print(prompt.prompt_multiple(names, 
+print(prompt.prompt_multiple(names,
+    add_none=True,
     allow_duplicates=True,
     bullet=" # ",
     clear_error=True,
+    default="None",
     indent="  ___   ",
     return_list=True,    
     sort=False,
