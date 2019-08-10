@@ -11,7 +11,7 @@ if platform.system() == "Linux":
 
 def prompt(txt,
     allow_empty=False,
-    clear_error=False,
+    clear=False,
     default=None,
     exclude=[],
     indent=" "*2,
@@ -29,6 +29,9 @@ def prompt(txt,
 
     input_text+=": "
     while not tmp_var:
+        if clear is True:
+            msg.ft.clear_screen()
+
         tmp_var = input(input_text)
         if tmp_var.lower() == "q":
             sys.exit(1)
@@ -45,7 +48,7 @@ def prompt(txt,
             if tmp_var in exclude:
                 msg.warning("'{}' belongs to exclude list '{}'".format(tmp_var, exclude))
                 tmp_var=""
-                press_enter_continue(clear_error, indent)
+                press_enter_continue(clear, indent)
 
     return tmp_var.strip()
 
@@ -54,11 +57,11 @@ def prompt_multiple(
     add_none=False,
     allow_duplicates=False,
     bullet=" - ",
-    clear_error=False,
+    clear=False,
     default=None, 
     indent=" "*4, 
     index_only=False,
-    return_list=False, 
+    return_list=None, 
     show_item_info=True,
     show_numbers=True, 
     sort=True, 
@@ -101,7 +104,7 @@ def prompt_multiple(
             number=i+1
         items_text+="{}{}{}{}\n".format(indent, number, bullet, name)
 
-    if clear_error is False:
+    if clear is False:
         items_text="\n"+items_text
         print(items_text)
 
@@ -148,7 +151,8 @@ def prompt_multiple(
         input_text="{}\n{}".format(item_info,input_text)
 
     while not user_input:
-        if clear_error is True:
+        if clear is True:
+            msg.ft.clear_screen()
             print(items_text)
 
         user_input = input(input_text)
@@ -189,7 +193,7 @@ def prompt_multiple(
                 if is_digit is False:
                     msg.warning("Input '{}' must be an index from 1 to '{}'.".format(inp, len(names)))
                     user_input=[]
-                    press_enter_continue(clear_error, indent)
+                    press_enter_continue(clear, indent)
                     continue
                 else:
                     inp=int(inp)
@@ -209,7 +213,7 @@ def prompt_multiple(
             if found is False:
                 msg.warning("'{}' choice is not a valid choice.".format(inp))
                 user_input=[]
-                press_enter_continue(clear_error, indent)
+                press_enter_continue(clear, indent)
 
     if return_list is None:
         if len(choices) == 1:
@@ -227,10 +231,10 @@ def prompt_multiple(
         else:
             return choices
 
-def press_enter_continue(clear_error, indent):
-    if clear_error is True:
+def press_enter_continue(clear, indent):
+    if clear is True:
         input("{}Press Enter to continue...".format(indent))
-        msg.ft.clear_screen()
+
 
 def prompt_boolean(txt, Y_N="y"):
     tmp_var=""
