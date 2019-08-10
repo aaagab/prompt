@@ -164,7 +164,6 @@ def prompt_multiple(
             return None
 
         user_input=user_input.split(",")
-        print("here", user_input)
         if isinstance(user_input, list):
             tmp_input=[]
             for inp in user_input:
