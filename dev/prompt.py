@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
+from getpass import getpass
 import platform
 import os
 import shlex
 import sys
+import subprocess
 
 from ..gpkgs import message as msg
 
-if platform.system() == "Linux":
+pfm=platform.system()
+
+
+if pfm == "Linux":
     import readline
 
 def prompt(txt,
@@ -15,6 +20,7 @@ def prompt(txt,
     default=None,
     exclude=[],
     indent=" "*2,
+    hidden=False,
 ):
     if not isinstance(exclude, list):
         msg.error("exclude must be a list", exit=1, trace=True)
@@ -29,7 +35,10 @@ def prompt(txt,
 
     input_text+=": "
     while not tmp_var:
-        tmp_var = input(input_text)
+        if hidden is True:
+            tmp_var = getpass(input_text)
+        else:
+            tmp_var = input(input_text)
         if tmp_var.lower() == "q":
             sys.exit(1)
 
@@ -45,7 +54,7 @@ def prompt(txt,
             if tmp_var in exclude:
                 msg.warning("'{}' belongs to exclude list '{}'".format(tmp_var, exclude))
                 tmp_var=""
-                press_enter_continue(clear_error, indent)
+                pause(clear_error, indent)
 
     return tmp_var.strip()
 
@@ -55,6 +64,7 @@ def prompt_multiple(
     allow_duplicates=False,
     bullet=" - ",
     clear_error=False,
+    clear_start=False,
     default=None, 
     indent=" "*4, 
     index_only=False,
@@ -76,6 +86,9 @@ def prompt_multiple(
     else:
         if len(values) != len(names):
             msg.error("len values '{}' must be equals to len names '{}'".format(len(values), len(names)),exit=1, trace=True)
+
+    if clear_start is True:
+         msg.ft.clear_screen()
 
     tmp_names=[]
     for name in names:
@@ -190,7 +203,7 @@ def prompt_multiple(
                 if is_digit is False:
                     msg.warning("Input '{}' must be an index from 1 to '{}'.".format(inp, len(names)))
                     user_input=[]
-                    press_enter_continue(clear_error, indent)
+                    pause(clear_error, indent)
                     continue
                 else:
                     inp=int(inp)
@@ -210,7 +223,7 @@ def prompt_multiple(
             if found is False:
                 msg.warning("'{}' choice is not a valid choice.".format(inp))
                 user_input=[]
-                press_enter_continue(clear_error, indent)
+                pause(clear_error, indent)
 
     if return_list is None:
         if len(choices) == 1:
@@ -228,9 +241,13 @@ def prompt_multiple(
         else:
             return choices
 
-def press_enter_continue(clear_error, indent):
+def pause(clear_error=False, indent=" "*2):
+    if pfm == "Linux":
+        os.system("bash -c 'read -sn 1 -p \"Press any key to continue...\"'")
+        print()
+    elif pfm == "Windows":
+        os.system("pause")
     if clear_error is True:
-        input("{}Press Enter to continue...".format(indent))
         msg.ft.clear_screen()
 
 def prompt_boolean(txt, Y_N="y"):
@@ -256,14 +273,7 @@ def prompt_boolean(txt, Y_N="y"):
             return False
 
 def get_path(txt, allow_empty=False):
-    import subprocess
-    import platform
-    pfm=platform.system()
     if pfm == "Linux":
-        filenpa_get_path=os.path.join(
-            os.path.dirname(os.path.realpath(__file__)),
-            "get_path.sh"
-        )
         txt="  "+txt +" [q]: "
         path=""
         while not path:
