@@ -20,13 +20,14 @@ print(prompt.prompt("Input your name:", exclude=["mike", "tom"]))
 names=[ "banana", "raspberry", "pea" ]
 values=["yellow", "red", "green"]
 
-print(prompt.prompt_multiple(names))
+# print(prompt.prompt_multiple(names))
 
 print(prompt.prompt_multiple(names,
     add_none=True,
     allow_duplicates=True,
     bullet=" # ",
     clear_error=True,
+    clear_start=True,
     default="None",
     indent="  ___   ",
     return_list=True,    
@@ -50,6 +51,9 @@ print(prompt.prompt_multiple(names,
 # title=None,
 # values=[],
 
-print(prompt.prompt_boolean("Are you busy"))
-print(prompt.prompt_boolean("Are you busy",'n'))
-print(prompt.get_path("Choose path (autocomplete with tab)"))
+# print(prompt.prompt_boolean("Are you busy"))
+# print(prompt.prompt_boolean("Are you busy",'n'))
+# print(prompt.get_path("Choose path (autocomplete with tab)"))
+prompt.msg.info("Hidden Field")
+print(prompt.prompt("password", hidden=True))
+prompt.pause()
