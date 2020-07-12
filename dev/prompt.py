@@ -15,7 +15,6 @@ if pfm == "Linux":
     import readline
 
 def prompt(txt,
-    allow_empty=False,
     clear_error=False,
     default=None,
     exclude=[],
@@ -31,7 +30,10 @@ def prompt(txt,
         input_text="{}Input Excluded: '{}'.\n".format(indent, ", ".join(exclude))
     input_text+="{}{} [q to quit]".format(indent, txt )
     if default is not None:
-        input_text+="({})".format(default)
+        if default == "":
+            input_text+="(\"\")".format(default)
+        else:
+            input_text+="({})".format(default)
 
     input_text+=": "
     while not tmp_var:
