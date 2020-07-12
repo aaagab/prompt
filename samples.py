@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # author: Gabriel Auger
-# version: 2.1.0
+# version: 3.0.0
 # name: prompt
 # license: MIT
 
@@ -16,6 +16,13 @@ prompt.msg.info("Basic Input, type empty to see the results")
 print(prompt.prompt("Input your name"))
 print()
 print(prompt.prompt("Input your name:", exclude=["mike", "tom"]))
+
+print(prompt.prompt("default input empty", default=""))
+print()
+print(prompt.prompt("default input with value", default="myvalue"))
+print()
+
+input("Press Enter to continue")
 
 names=[ "banana", "raspberry", "pea" ]
 values=["yellow", "red", "green"]
