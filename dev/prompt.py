@@ -48,9 +48,6 @@ def prompt(txt,
             if default is not None:
                 return default
             
-            if allow_empty:
-                return ""
-
         tmp_var=tmp_var.strip()
         if exclude:
             if tmp_var in exclude:
