@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # author: Gabriel Auger
-# version: 3.0.0
+# version: 3.0.2
 # name: prompt
 # license: MIT
 
