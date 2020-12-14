@@ -64,7 +64,8 @@ def prompt_multiple(
     bullet=" - ",
     clear_error=False,
     clear_start=False,
-    default=None, 
+    default=None,
+    error_on_quit=True, 
     indent=" "*4, 
     index_only=False,
     return_list=False, 
@@ -166,7 +167,10 @@ def prompt_multiple(
         user_input = input(input_text)
 
         if user_input.lower() == "q":
-            sys.exit(1)
+            if error_on_quit is True:
+                sys.exit(1)
+            else:
+                return None
 
         if not user_input:
             if default is not None:
