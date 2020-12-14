@@ -15,7 +15,6 @@ if pfm == "Linux":
     import readline
 
 def prompt(txt,
-    allow_empty=False,
     clear_error=False,
     default=None,
     exclude=[],
@@ -31,7 +30,10 @@ def prompt(txt,
         input_text="{}Input Excluded: '{}'.\n".format(indent, ", ".join(exclude))
     input_text+="{}{} [q to quit]".format(indent, txt )
     if default is not None:
-        input_text+="({})".format(default)
+        if default == "":
+            input_text+="(\"\")".format(default)
+        else:
+            input_text+="({})".format(default)
 
     input_text+=": "
     while not tmp_var:
@@ -46,9 +48,6 @@ def prompt(txt,
             if default is not None:
                 return default
             
-            if allow_empty:
-                return ""
-
         tmp_var=tmp_var.strip()
         if exclude:
             if tmp_var in exclude:
@@ -65,7 +64,8 @@ def prompt_multiple(
     bullet=" - ",
     clear_error=False,
     clear_start=False,
-    default=None, 
+    default=None,
+    error_on_quit=True, 
     indent=" "*4, 
     index_only=False,
     return_list=False, 
@@ -167,7 +167,10 @@ def prompt_multiple(
         user_input = input(input_text)
 
         if user_input.lower() == "q":
-            sys.exit(1)
+            if error_on_quit is True:
+                sys.exit(1)
+            else:
+                return None
 
         if not user_input:
             if default is not None:
