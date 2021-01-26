@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # author: Gabriel Auger
-# version: 3.1.0
+# version: 3.2.0
 # name: prompt
 # license: MIT
 
@@ -13,6 +13,7 @@ prompt = importlib.import_module(module_name)
 del sys.path[0]
 
 prompt.msg.info("Basic Input, type empty to see the results")
+print(prompt.prompt_multiple(["a", "b", "c", "d", "e", "f", "g", "h", "l", "m", "n", "o"], error_on_quit=False))
 print(prompt.prompt_multiple(["banana", "apple"], error_on_quit=False))
 
 print(prompt.prompt("Input your name"))

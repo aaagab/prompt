@@ -112,7 +112,8 @@ def prompt_multiple(
     for i ,name in enumerate(names):
         if show_numbers is True:
             number=i+1
-        items_text+="{}{}{}{}\n".format(indent, number, bullet, name)
+            number
+        items_text+="{}{}{}{}\n".format(indent, str(number).rjust(len(str(len(names))), " "), bullet, name)
 
     if clear_error is False:
         items_text="\n"+items_text
