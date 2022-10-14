@@ -17,10 +17,13 @@ if pfm == "Linux":
 def prompt(txt,
     clear_error=False,
     default=None,
-    exclude=[],
+    exclude=None,
     indent=" "*2,
     hidden=False,
 ):
+    if exclude is None:
+        exclude=[]
+
     if not isinstance(exclude, list):
         msg.error("exclude must be a list", exit=1, trace=True)
 
@@ -73,8 +76,11 @@ def prompt_multiple(
     show_numbers=True, 
     sort=True, 
     title=None,
-    values=[],
+    values=None,
 ):
+    if values is None:
+        values=[]
+
     if not isinstance(names, list):
         msg.error("names is not a list", exit=1, trace=True)
 
