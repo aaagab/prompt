@@ -7,6 +7,7 @@ import sys
 import subprocess
 
 from ..gpkgs import message as msg
+from ..gpkgs.format_text import Format_text as ft
 
 pfm=platform.system()
 
@@ -94,7 +95,7 @@ def prompt_multiple(
             msg.error("len values '{}' must be equals to len names '{}'".format(len(values), len(names)),exit=1, trace=True)
 
     if clear_start is True:
-         msg.ft.clear_screen()
+         ft.clear_screen()
 
     tmp_names=[]
     for name in names:
@@ -258,7 +259,7 @@ def pause(clear_error=False, indent=" "*2):
     elif pfm == "Windows":
         os.system("pause")
     if clear_error is True:
-        msg.ft.clear_screen()
+        ft.clear_screen()
 
 def prompt_boolean(txt, Y_N="y"):
     tmp_var=""
